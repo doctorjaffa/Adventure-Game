@@ -1,20 +1,71 @@
-// Adventure Game.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+#include <vector>
+#include "Player.h"
+#include "Area.h"
+
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    //Create a new player.
+    Player player("Sylokyr", "Shaman", 35, 4, "Staff", "Robes");
+
+    //Create different areas.
+    Area area1("Woodlands", "The trees seem to stretch endlessly in every direction.", "");
+    Area area2("Forgotten Shrine", "The walls seem ready to crumble at any moment.", "");
+    Area area3("Pond of Sacrifice", "It's said the Merciful One saved these lands by diving into this pond.", "");
+    Area area4("Stone Tower", "Peering from the top, you can just make out an end to these old woods.", "");
+    Area area5("Tomb of Mercy", "A soft yellow hue fainlty lightens the small room. A giant tomb stands before you.", "");
+
+    //Connect areas to one another accordingly.
+    area1.exits.push_back(area3);
+    area1.exits.push_back(area4);
+
+    area2.exits.push_back(area3);
+    area2.exits.push_back(area5);
+
+    area3.exits.push_back(area1);
+    area3.exits.push_back(area2);
+    
+    area4.exits.push_back(area1);
+
+    area5.exits.push_back(area2);
+
+    //Set the current area.
+    player.currentArea = area1;
+
+    //Opening text. Take first command from player.
+    std::cout << "\nYou awaken in a small opening, surrounded by trees." << std::endl;
+
+    while (true) {
+
+        std::string userIn = "";
+        std::cout << "\nWhat would you like to do? ";
+        std::cin >> userIn;
+
+        //If the user enters "look", run the Look() function.
+        if (userIn == "look")
+        {
+            player.currentArea.Look();
+        }
+        //If the user enters "go", run the Go() function.
+        else if (userIn == "go")
+        {
+            std::string userArea;
+            std::cout << "\nWhere do you want to go? ";
+            std::getline(std::cin >> std::ws, userArea);
+
+            //Loop through the exits available from the current area.
+            for (int i = 0; i < player.currentArea.exits.size(); ++i)
+            {
+                //If the user-inputted area matches one of the exit names, pass that exit into the Go() function.
+                if (player.currentArea.exits[i].name == userArea)
+                {
+                    player.Go(player.currentArea.exits[i]);
+                    std::cout << "\nNew Area: " << player.currentArea.name;
+                }
+            }
+        }
+    }
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file

@@ -42,8 +42,15 @@ int main()
         std::cout << "\nWhat would you like to do? ";
         std::cin >> userIn;
 
+        //If the user enters "help", display a list of commands.
+        if (userIn == "help")
+        {
+            std::cout << "\nCOMMANDS:" << std::endl;
+            std::cout << "look - Inspect current area. Lists possible exits." << std::endl;
+            std::cout << "go - Travel to a new area." << std::endl;
+        }
         //If the user enters "look", run the Look() function.
-        if (userIn == "look")
+        else if (userIn == "look")
         {
             player.currentArea.Look();
         }
@@ -61,7 +68,7 @@ int main()
                 if (player.currentArea.exits[i].name == userArea)
                 {
                     player.Go(player.currentArea.exits[i]);
-                    std::cout << "\nNew Area: " << player.currentArea.name;
+                    std::cout << "\nNew Area: " << player.currentArea.name << std::endl;
                 }
             }
         }

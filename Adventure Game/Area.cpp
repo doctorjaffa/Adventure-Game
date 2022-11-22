@@ -15,7 +15,7 @@ Area::Area(std::string newName, std::string newDescription, std::string newConte
 	: name(newName)
 	, description(newDescription)
 	, contents(newContents)
-	, exits()
+	//, exits()
 {
 }
 
@@ -30,10 +30,10 @@ void Area::Look()
 {
 	std::cout << "\n" << description;
 
-	std::cout << std::endl << "\nExits:" << std::endl;
+	std::cout << "\nExits:\n";
 
 	for (int i = 0; i < exits.size(); ++i)
 	{
-		std::cout << exits[i].name << std::endl;
+		std::cout << exits[i]->name << "\n";
 	}
 }

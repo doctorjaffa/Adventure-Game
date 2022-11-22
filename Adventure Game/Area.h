@@ -18,6 +18,6 @@ public:
 	std::string name;
 	std::string description;
 	std::string contents;
-	std::vector<Area> exits;
+	std::vector<Area*> exits;
 };
 

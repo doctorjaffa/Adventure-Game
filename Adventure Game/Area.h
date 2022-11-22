@@ -2,6 +2,8 @@
 #include <string>
 #include <vector>
 
+class Player;
+
 class Area
 {
 public:
@@ -13,6 +15,7 @@ public:
 
 	//Class functions.
 	void Look();
+	void Go(Player* player, std::string userArea);
 
 	//Class variables.
 	std::string name;

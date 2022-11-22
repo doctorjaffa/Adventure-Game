@@ -59,17 +59,7 @@ int main()
             std::cout << "\nWhere do you want to go? ";
             std::getline(std::cin >> std::ws, userArea);
 
-            //Loop through the exits available from the current area.
-            for (int i = 0; i < player.currentArea->exits.size(); ++i)
-            {
-                //If the user-inputted area matches one of the exit names, pass that exit into the Go() function.
-                if (player.currentArea->exits[i]->name == userArea)
-                {
-                    player.Go(player.currentArea->exits[i]);
-                    std::cout << "\nNew Area: " << player.currentArea->name << "\n";
-                    std::cout << player.currentArea->description << "\n";
-                }
-            }
+            player.currentArea->Go(&player, userArea);
         }
     }
 }

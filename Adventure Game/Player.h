@@ -1,7 +1,8 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "Area.h"
+
+class Area;
 
 class Player
 {
@@ -13,7 +14,7 @@ public:
 	~Player();
 
 	//Class functions.
-	void Go(Area* newArea);
+	//void Go(Area* newArea);
 
 	//void SetArea(Area* newArea);
 

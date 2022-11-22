@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Area.h"
 #include <iostream>
 
 //Default constructor.
@@ -40,11 +41,12 @@ Player::~Player()
 	//std::cout << "\nPlayer has been destroyed!"
 }
 
-//Update the current area to the new area the player enters, if that area is available.
+/*Update the current area to the new area the player enters, if that area is available.
 void Player::Go(Area* newArea)
 {
 	currentArea = newArea;
 }
+*/
 
 /*
 void Player::SetArea(Area* newArea)

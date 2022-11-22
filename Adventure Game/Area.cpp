@@ -1,4 +1,5 @@
 #include "Area.h"
+#include "Player.h"
 #include <iostream>
 
 //Default constructor.
@@ -36,4 +37,19 @@ void Area::Look()
 	{
 		std::cout << exits[i]->name << "\n";
 	}
+}
+
+void Area::Go(Player* player, std::string userArea)
+{
+		//Loop through the exits available from the current area.
+		for (int i = 0; i < exits.size(); ++i)
+		{
+			//If the user-inputted area matches one of the exit names, pass that exit into the Go() function.
+			if (exits[i]->name == userArea)
+			{
+				player->currentArea = exits[i];
+				std::cout << "\nNew Area: " << player->currentArea->name << "\n";
+				std::cout << player->currentArea->description << "\n";
+			}
+		}
 }

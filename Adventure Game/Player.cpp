@@ -41,6 +41,11 @@ Player::~Player()
 	//std::cout << "\nPlayer has been destroyed!"
 }
 
+Area* Player::GetCurrentArea()
+{
+	return currentArea;
+}
+
 /*Update the current area to the new area the player enters, if that area is available.
 void Player::Go(Area* newArea)
 {
@@ -48,9 +53,26 @@ void Player::Go(Area* newArea)
 }
 */
 
-/*
-void Player::SetArea(Area* newArea)
+
+void Player::SetCurrentArea(Area* newArea)
 {
 	currentArea = newArea;
 }
+
+/*
+void Player::DealDamage()
+{
+	Monster& currentMonster = currentArea->GetMonster();
+
+	currentMonster.SetHealth(attack);
+
+	health -= currentMonster.GetAttack();
+
+	if (health < 1)
+	{
+		std::cout << "\nGame is Over. You lose.\n";
+		//QUIT GAME LOOP.
+	}
+}
 */
+

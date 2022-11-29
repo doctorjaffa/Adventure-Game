@@ -16,7 +16,14 @@ public:
 	//Class functions.
 	//void Go(Area* newArea);
 
-	//void SetArea(Area* newArea);
+	//Getters/Setters.
+	Area* GetCurrentArea();
+	void SetCurrentArea(Area* newArea);
+
+	//void DealDamage();
+
+
+private:
 
 	//Class variables.
 	std::string name;

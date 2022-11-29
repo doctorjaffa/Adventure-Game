@@ -1,6 +1,7 @@
 #include "Area.h"
 #include "Player.h"
 #include <iostream>
+#include <vector>
 
 //Default constructor.
 Area::Area()
@@ -12,11 +13,12 @@ Area::Area()
 }
 
 //Data populated constructor.
-Area::Area(std::string newName, std::string newDescription, std::string newContents)
+Area::Area(std::string newName, std::string newDescription, std::string newContents/*Monster newMonster*/)
 	: name(newName)
 	, description(newDescription)
 	, contents(newContents)
 	//, exits()
+	//monster(newMonster)
 {
 }
 
@@ -47,9 +49,21 @@ void Area::Go(Player* player, std::string userArea)
 			//If the user-inputted area matches one of the exit names, pass that exit into the Go() function.
 			if (exits[i]->name == userArea)
 			{
-				player->currentArea = exits[i];
-				std::cout << "\nNew Area: " << player->currentArea->name << "\n";
-				std::cout << player->currentArea->description << "\n";
+				player->SetCurrentArea(exits[i]);
+				std::cout << "\nNew Area: " << player->GetCurrentArea()->name << "\n";
+				std::cout << player->GetCurrentArea()->description << "\n";
 			}
 		}
 }
+
+void Area::SetExits(Area* newExit)
+{
+	exits.push_back(newExit);
+}
+
+/*
+Monster Area::GetMonster()
+{
+	return Monster;
+}
+*/

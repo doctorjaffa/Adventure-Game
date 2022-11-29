@@ -2,34 +2,38 @@
 #include <vector>
 #include "Player.h"
 #include "Area.h"
+#include "Monster.h"
 
 
 int main()
 {
 
     //Create different areas.
-    Area area1("Woodlands", "The trees seem to stretch endlessly in every direction.", "");
+    Area area1("Woodlands", "The trees seem to stretch endlessly in every direction.", ""/*, &monster1*/);
     Area area2("Forgotten Shrine", "The walls seem ready to crumble at any moment.", "");
     Area area3("Pond of Sacrifice", "It's said the Merciful One saved these lands by diving into this pond.", "");
     Area area4("Stone Tower", "Peering from the top, you can just make out an end to these old woods.", "");
     Area area5("Tomb of Mercy", "A soft yellow hue fainlty lightens the small room. A giant tomb stands before you.", "");
 
     //Connect areas to one another accordingly.
-    area1.exits.push_back(&area3);
-    area1.exits.push_back(&area4);
+    area1.SetExits(&area3);
+    area1.SetExits(&area4);
 
-    area2.exits.push_back(&area3);
-    area2.exits.push_back(&area5);
+    area2.SetExits(&area3);
+    area2.SetExits(&area5);
 
-    area3.exits.push_back(&area1);
-    area3.exits.push_back(&area2);
+    area3.SetExits(&area1);
+    area3.SetExits(&area2);
 
-    area4.exits.push_back(&area1);
+    area4.SetExits(&area1);
 
-    area5.exits.push_back(&area2);
+    area5.SetExits(&area2);
 
     //Create a new player.
     Player player("Sylokyr", "Shaman", 35, 4, "Staff", "Robes", &area1);
+
+    //Create monster(s).
+    Monster monster1("Tree Spirit", "Once a friend of the forest, this spirit now roams endlessly with bloodlust.", 15, 3);
 
     //Opening text. Take first command from player.
     std::cout << "\nYou awaken in a small opening, surrounded by trees." << "\n";
@@ -50,7 +54,7 @@ int main()
         //If the user enters "look", run the Look() function.
         else if (userIn == "look")
         {
-            player.currentArea->Look();
+            player.GetCurrentArea()->Look();
         }
         //If the user enters "go", run the Go() function.
         else if (userIn == "go")
@@ -59,7 +63,7 @@ int main()
             std::cout << "\nWhere do you want to go? ";
             std::getline(std::cin >> std::ws, userArea);
 
-            player.currentArea->Go(&player, userArea);
+            player.GetCurrentArea()->Go(&player, userArea);
         }
     }
 }

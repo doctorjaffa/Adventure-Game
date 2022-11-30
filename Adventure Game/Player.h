@@ -17,6 +17,7 @@ public:
 
 	//Getters/Setters.
 	Area* GetCurrentArea();
+	int GetHealth();
 	void SetCurrentArea(Area* newArea);
 
 	void DealDamage(std::string monsterName);

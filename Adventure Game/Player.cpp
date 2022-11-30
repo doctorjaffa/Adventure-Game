@@ -46,6 +46,11 @@ Area* Player::GetCurrentArea()
 	return currentArea;
 }
 
+int Player::GetHealth()
+{
+	return health;
+}
+
 void Player::SetCurrentArea(Area* newArea)
 {
 	currentArea = newArea;

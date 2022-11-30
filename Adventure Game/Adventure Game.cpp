@@ -83,6 +83,11 @@ int main()
 
             player.DealDamage(targetMonster);
         }
+
+        if (player.GetHealth() < 1)
+        {
+            std::abort();
+        }
     }
 }
 

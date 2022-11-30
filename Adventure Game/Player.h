@@ -14,13 +14,12 @@ public:
 	~Player();
 
 	//Class functions.
-	//void Go(Area* newArea);
 
 	//Getters/Setters.
 	Area* GetCurrentArea();
 	void SetCurrentArea(Area* newArea);
 
-	//void DealDamage();
+	void DealDamage(std::string monsterName);
 
 
 private:

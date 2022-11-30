@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 
+class Area;
+
 class Monster
 {
 public:
@@ -10,10 +12,17 @@ public:
 	Monster(std::string newName, std::string newDescription, int newHealth, int newAttack);
 
 	~Monster();
+	
+	//Class functions.
+	void PrintStats();
 
 	//Getters/Setters.
-	//int GetAttack();
-	//void SetHealth();
+	std::string GetName();
+	int GetAttack();
+	int GetHealth();
+	void DecreaseHealth(int playerAttack);
+
+	bool isDead;
 
 private:
 
@@ -22,5 +31,6 @@ private:
 	std::string description;
 	int health;
 	int attack;
+
 };
 

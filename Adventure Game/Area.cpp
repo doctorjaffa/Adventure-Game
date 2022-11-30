@@ -1,5 +1,6 @@
 #include "Area.h"
 #include "Player.h"
+#include "Monster.h"
 #include <iostream>
 #include <vector>
 
@@ -7,18 +8,14 @@
 Area::Area()
 	: name("")
 	, description("")
-	, contents("")
 	, exits()
 {
 }
 
 //Data populated constructor.
-Area::Area(std::string newName, std::string newDescription, std::string newContents/*Monster newMonster*/)
+Area::Area(std::string newName, std::string newDescription)
 	: name(newName)
 	, description(newDescription)
-	, contents(newContents)
-	//, exits()
-	//monster(newMonster)
 {
 }
 
@@ -39,6 +36,15 @@ void Area::Look()
 	{
 		std::cout << exits[i]->name << "\n";
 	}
+
+	std::cout << "\n\n";
+
+	std::cout << "Monsters in Area:\n";
+
+	for (int i = 0; i < monsters.size(); ++i)
+	{
+		monsters[i]->PrintStats();
+	}
 }
 
 void Area::Go(Player* player, std::string userArea)
@@ -56,14 +62,39 @@ void Area::Go(Player* player, std::string userArea)
 		}
 }
 
+void Area::UpdateMonsters()
+{
+	for (int i = 0; i < monsters.size(); ++i)
+	{
+		if (monsters[i]->isDead)
+		{
+			monsters.erase(monsters.begin() + i);
+			//monsters.erase(std::remove_if(monsters.begin(), monsters.end(), monsters[i]->isDead), monsters.end());
+			std::cout << "\nMonster has died!\n";
+		}
+	}
+}
+
 void Area::SetExits(Area* newExit)
 {
 	exits.push_back(newExit);
 }
 
-/*
-Monster Area::GetMonster()
+void Area::AddMonster(Monster* newMonster)
 {
-	return Monster;
+	monsters.push_back(newMonster);
 }
-*/
+
+
+Monster* Area::GetMonster(std::string targetMonster)
+{
+	for (int i = 0; i < monsters.size(); ++i)
+	{
+		if (monsters[i]->GetName() == targetMonster)
+		{
+			return monsters[i];
+		}
+	}
+}
+
+

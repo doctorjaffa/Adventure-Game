@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Area.h"
+#include "Monster.h"
 #include <iostream>
 
 //Default constructor.
@@ -31,13 +32,12 @@ Player::Player(std::string newName, std::string newDescription, int newHealth, i
 //Default destructor.
 Player::~Player()
 {
-	/*
+	
 	if (currentArea != nullptr)
 	{
 		delete currentArea;
 		currentArea = nullptr;
 	}
-	*/
 	//std::cout << "\nPlayer has been destroyed!"
 }
 
@@ -46,33 +46,37 @@ Area* Player::GetCurrentArea()
 	return currentArea;
 }
 
-/*Update the current area to the new area the player enters, if that area is available.
-void Player::Go(Area* newArea)
-{
-	currentArea = newArea;
-}
-*/
-
-
 void Player::SetCurrentArea(Area* newArea)
 {
 	currentArea = newArea;
 }
 
-/*
-void Player::DealDamage()
+
+void Player::DealDamage(std::string monsterName)
 {
-	Monster& currentMonster = currentArea->GetMonster();
+	Monster* currentMonster = currentArea->GetMonster(monsterName);
 
-	currentMonster.SetHealth(attack);
-
-	health -= currentMonster.GetAttack();
-
-	if (health < 1)
+	while (health > 0 && currentMonster->GetHealth() > 0)
 	{
-		std::cout << "\nGame is Over. You lose.\n";
-		//QUIT GAME LOOP.
+
+		currentMonster->DecreaseHealth(attack);
+
+		health -= currentMonster->GetAttack();
+
+		if (health < 1)
+		{
+			std::cout << "\nGame is Over. You lose.\n";
+			//QUIT GAME LOOP.
+		}
+
+		currentArea->UpdateMonsters();
+
+		if (currentMonster->isDead)
+		{
+			std::cout << "\nPlayer health: " << health;
+			std::cout << "\nMonster health:" << currentMonster->GetHealth();
+		}
 	}
 }
-*/
+
 

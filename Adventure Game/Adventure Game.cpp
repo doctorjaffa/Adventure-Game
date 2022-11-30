@@ -9,13 +9,13 @@ int main()
 {
 
     //Create different areas.
-    Area area1("Woodlands", "The trees seem to stretch endlessly in every direction.", ""/*, &monster1*/);
-    Area area2("Forgotten Shrine", "The walls seem ready to crumble at any moment.", "");
-    Area area3("Pond of Sacrifice", "It's said the Merciful One saved these lands by diving into this pond.", "");
-    Area area4("Stone Tower", "Peering from the top, you can just make out an end to these old woods.", "");
-    Area area5("Tomb of Mercy", "A soft yellow hue fainlty lightens the small room. A giant tomb stands before you.", "");
+    Area area1("Woodlands", "The trees seem to stretch endlessly in every direction.");
+    Area area2("Forgotten Shrine", "The walls seem ready to crumble at any moment.");
+    Area area3("Pond of Sacrifice", "It's said the Merciful One saved these lands by diving into this pond.");
+    Area area4("Stone Tower", "Peering from the top, you can just make out an end to these old woods.");
+    Area area5("Tomb of Mercy", "A soft yellow hue fainlty lightens the small room. A giant tomb stands before you.");
 
-    //Connect areas to one another accordingly.
+    //Connect areas to others accordingly.
     area1.SetExits(&area3);
     area1.SetExits(&area4);
 
@@ -35,6 +35,9 @@ int main()
     //Create monster(s).
     Monster monster1("Tree Spirit", "Once a friend of the forest, this spirit now roams endlessly with bloodlust.", 15, 3);
 
+    //Set monsters to areas.
+    area1.AddMonster(&monster1);
+
     //Opening text. Take first command from player.
     std::cout << "\nYou awaken in a small opening, surrounded by trees." << "\n";
 
@@ -48,8 +51,15 @@ int main()
         if (userIn == "help")
         {
             std::cout << "\nCOMMANDS:" << "\n";
+            std::cout << "clear - Clears screen.\n";
             std::cout << "look - Inspect current area. Lists possible exits." << "\n";
-            std::cout << "go - Travel to a new area." << "\n";
+            std::cout << "go - Travel to a new area accessible from current area." << "\n";
+            std::cout << "attack - Attack a monster in the current area. Must enter monster name on prompt to fight it. Fight will end when something dies." << "\n";
+        }
+        //If the user enters "clear", clear the screen.
+        else if (userIn == "clear")
+        {
+            system("CLS");
         }
         //If the user enters "look", run the Look() function.
         else if (userIn == "look")
@@ -64,6 +74,14 @@ int main()
             std::getline(std::cin >> std::ws, userArea);
 
             player.GetCurrentArea()->Go(&player, userArea);
+        }
+        else if (userIn == "attack")
+        {
+            std::string targetMonster;
+            std::cout << "\nWhat monster do you want to attack? ";
+            std::getline(std::cin >> std::ws, targetMonster);
+
+            player.DealDamage(targetMonster);
         }
     }
 }

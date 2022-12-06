@@ -1,11 +1,12 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "Thing.h"
 
 class Player;
 class Monster;
 
-class Area
+class Area : public Thing
 {
 public:
 
@@ -28,10 +29,7 @@ public:
 private:
 
 	//Class variables.
-	std::string name;
-	std::string description;
 	std::vector<Area*> exits;
-
 	std::vector<Monster*> monsters;
 };
 

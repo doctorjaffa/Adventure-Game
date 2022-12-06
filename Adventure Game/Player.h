@@ -1,10 +1,11 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "Creature.h"
 
 class Area;
 
-class Player
+class Player : public Creature
 {
 public:
 
@@ -17,7 +18,6 @@ public:
 
 	//Getters/Setters.
 	Area* GetCurrentArea();
-	int GetHealth();
 	void SetCurrentArea(Area* newArea);
 
 	void DealDamage(std::string monsterName);
@@ -26,10 +26,6 @@ public:
 private:
 
 	//Class variables.
-	std::string name;
-	std::string description;
-	int health;
-	int attack;
 	std::string weapon;
 	std::string armour;
 	std::vector<std::string> inventory;

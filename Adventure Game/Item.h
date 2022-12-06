@@ -1,9 +1,14 @@
 #pragma once
 #include <string>
+#include "Thing.h"
 
-class Item
+class Item : public Thing
 {
-	std::string name;
-	std::string description;
+	
+	//Constructors/Destructors.
+	Item();
+	Item(std::string newName, std::string newDescription);
+
+	~Item();
 };
 

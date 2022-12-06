@@ -5,10 +5,7 @@
 
 //Default constructor.
 Player::Player()
-	: name("")
-	, description("")
-	, health(0)
-	, attack(0)
+	: Creature()
 	, weapon("")
 	, armour("")
 	, inventory()
@@ -18,10 +15,7 @@ Player::Player()
 
 //Data populated constructor.
 Player::Player(std::string newName, std::string newDescription, int newHealth, int newAttack, std::string newWeapon, std::string newArmour, Area* newArea)
-	: name(newName)
-	, description(newDescription)
-	, health(newHealth)
-	, attack(newAttack)
+	: Creature(newName, newDescription, newHealth, newAttack)
 	, weapon(newWeapon)
 	, armour(newArmour)
 	, inventory()
@@ -46,27 +40,21 @@ Area* Player::GetCurrentArea()
 	return currentArea;
 }
 
-int Player::GetHealth()
-{
-	return health;
-}
-
 void Player::SetCurrentArea(Area* newArea)
 {
 	currentArea = newArea;
 }
 
-
 void Player::DealDamage(std::string monsterName)
 {
 	Monster* currentMonster = currentArea->GetMonster(monsterName);
 
-	while (health > 0 && currentMonster->GetHealth() > 0)
+	while (GetHealth() > 0 && currentMonster->GetHealth() > 0)
 	{
 
 		currentMonster->DecreaseHealth(attack);
 
-		health -= currentMonster->GetAttack();
+		DecreaseHealth(currentMonster->GetAttack());
 
 		if (health < 1)
 		{
@@ -76,7 +64,7 @@ void Player::DealDamage(std::string monsterName)
 
 		currentArea->UpdateMonsters();
 
-		if (currentMonster->isDead)
+		if (currentMonster->GetStatus())
 		{
 			std::cout << "\nPlayer health: " << health;
 			std::cout << "\nMonster health:" << currentMonster->GetHealth();

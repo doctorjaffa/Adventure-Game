@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Area.h"
 #include "Monster.h"
+#include "Thing.h"
 
 
 int main()
@@ -39,12 +40,12 @@ int main()
     area1.AddMonster(&monster1);
 
     //Opening text. Take first command from player.
-    std::cout << "\nYou awaken in a small opening, surrounded by trees." << "\n";
+    std::cout << "\nYou awaken in a small opening, surrounded by trees.";
 
     while (true) {
 
         std::string userIn = "";
-        std::cout << "\nWhat would you like to do? ";
+        std::cout << "\n\nWhat would you like to do? ";
         std::cin >> userIn;
 
         //If the user enters "help", display a list of commands.
@@ -52,7 +53,7 @@ int main()
         {
             std::cout << "\nCOMMANDS:" << "\n";
             std::cout << "clear - Clears screen.\n";
-            std::cout << "look - Inspect current area. Lists possible exits." << "\n";
+            std::cout << "look - Inspect something. Enter 'area' to see exits and monsters." << "\n";
             std::cout << "go - Travel to a new area accessible from current area." << "\n";
             std::cout << "attack - Attack a monster in the current area. Must enter monster name on prompt to fight it. Fight will end when something dies." << "\n";
         }
@@ -64,7 +65,18 @@ int main()
         //If the user enters "look", run the Look() function.
         else if (userIn == "look")
         {
-            player.GetCurrentArea()->Look();
+            std::string userAnswer;
+            std::cout << "\nLook at what? ";
+            std::getline(std::cin >> std::ws, userAnswer);
+
+            if (userAnswer == "area")
+            {
+                player.GetCurrentArea()->Look();
+            }
+            else if (userAnswer == player.GetCurrentArea()->GetMonster(userAnswer)->GetName())
+            {
+                player.GetCurrentArea()->GetMonster(userAnswer)->Look();
+            }
         }
         //If the user enters "go", run the Go() function.
         else if (userIn == "go")
@@ -75,6 +87,7 @@ int main()
 
             player.GetCurrentArea()->Go(&player, userArea);
         }
+        //If the user enters "attack", ask what monster to target then deal damage.
         else if (userIn == "attack")
         {
             std::string targetMonster;
@@ -84,6 +97,7 @@ int main()
             player.DealDamage(targetMonster);
         }
 
+        //If player's health drops to 0, kill them and end the game.
         if (player.GetHealth() < 1)
         {
             std::abort();

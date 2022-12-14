@@ -45,6 +45,16 @@ void Area::Look()
 	{
 		std::cout << "\n" << monsters[i]->GetName();
 	}
+
+	std::cout << "\n\n";
+
+	//Print any items available within the current area.
+	std::cout << "Items in Area:";
+
+	for (int i = 0; i < items.size(); ++i)
+	{
+		std::cout << "\n" << items[i]->GetName();
+	}
 }
 
 void Area::Go(Player* player, std::string userArea)
@@ -64,6 +74,19 @@ void Area::Go(Player* player, std::string userArea)
 		}
 }
 
+void Area::Grab(Player* player, std::string targetItem)
+{
+	for (int i = 0; i < items.size(); ++i)
+	{
+		if (items[i]->GetName() == targetItem)
+		{
+			player->AddItem(items[i]);
+			items.erase(items.begin() + i);
+			std::cout << "\nYou have collected: " << items[i]->GetName();
+		}
+	}
+}
+
 //If a monster dies, remove it from the list of available monsters in that area.
 void Area::UpdateMonsters()
 {
@@ -77,9 +100,15 @@ void Area::UpdateMonsters()
 	}
 }
 
+
 void Area::SetExits(Area* newExit)
 {
 	exits.push_back(newExit);
+}
+
+void Area::SetItems(Item* newItem)
+{
+	items.push_back(newItem);
 }
 
 void Area::AddMonster(Monster* newMonster)
@@ -100,6 +129,20 @@ Monster* Area::GetMonster(std::string targetMonster)
 		else
 		{
 			std::cout << "\nThere are no monsters by that name.";
+		}
+	}
+}
+
+Item* Area::GetItem(std::string targetItem)
+{
+	for (int i = 0; i < items.size(); ++i)
+	{
+		if (items[i]->GetName() == targetItem)
+		{
+			Item* toReturn = items[i];
+
+			items.erase(items.begin() + i);
+			return toReturn;
 		}
 	}
 }

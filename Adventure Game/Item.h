@@ -4,11 +4,11 @@
 
 class Item : public Thing
 {
-	
+public:
+
 	//Constructors/Destructors.
 	Item();
 	Item(std::string newName, std::string newDescription);
 
-	~Item();
+	virtual ~Item();
 };
-

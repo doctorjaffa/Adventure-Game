@@ -2,6 +2,8 @@
 #include <string>
 #include <vector>
 #include "Creature.h"
+#include "Item.h"
+#include "Potion.h"
 
 class Area;
 
@@ -20,7 +22,10 @@ public:
 	Area* GetCurrentArea();
 	void SetCurrentArea(Area* newArea);
 
+	//Public functions.
 	void DealDamage(std::string monsterName);
+	void AddItem(Item* targetItem);
+	void PrintInventory();
 
 
 private:
@@ -28,7 +33,7 @@ private:
 	//Class variables.
 	std::string weapon;
 	std::string armour;
-	std::vector<std::string> inventory;
+	std::vector<Item*> inventory;
 
 	Area* currentArea;
 };

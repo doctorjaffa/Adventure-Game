@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include "Thing.h"
+#include "Item.h"
 
 class Player;
 class Monster;
@@ -18,12 +19,17 @@ public:
 	//Class functions.
 	void Look();
 	void Go(Player* player, std::string userArea);
+	void Grab(Player* player, std::string targetItem);
 	void UpdateMonsters();
+	void UpdateItems();
+	void AddMonster(Monster* newMonster);
 
 	//Getters/Setters.
-	void SetExits(Area* newExit);
-	void AddMonster(Monster* newMonster);
 	Monster* GetMonster(std::string targetMonster);
+	Item* GetItem(std::string targetItem);
+
+	void SetExits(Area* newExit);
+	void SetItems(Item* newItem);
 
 
 private:
@@ -31,5 +37,6 @@ private:
 	//Class variables.
 	std::vector<Area*> exits;
 	std::vector<Monster*> monsters;
+	std::vector<Item*> items;
 };
 

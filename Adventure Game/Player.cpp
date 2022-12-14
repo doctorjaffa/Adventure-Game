@@ -72,4 +72,25 @@ void Player::DealDamage(std::string monsterName)
 	}
 }
 
+void Player::AddItem(Item* targetItem)
+{
+	Potion* potionPtr = dynamic_cast<Potion*>(targetItem);
+
+	if (potionPtr != nullptr)
+	{
+		inventory.push_back(targetItem);
+	}
+ 
+}
+
+void Player::PrintInventory()
+{
+	std::cout << "\nINVENTORY";
+
+	for (int i = 0; i < inventory.size(); ++i)
+	{
+		std::cout << "\n" << inventory[i]->GetName() << "     " << inventory[i]->GetDescription();;
+	}
+}
+
 

@@ -11,4 +11,7 @@ public:
 	Item(std::string newName, std::string newDescription);
 
 	virtual ~Item();
+
+	//Class functions.
+	void Use();
 };
